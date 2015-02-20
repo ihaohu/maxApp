@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Button markup - jQuery Mobile Demos</title>
-	<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
-	<script src="jquery.mobile-1.4.5.min.js"></script>
-	<style>
-		#custom-border-radius .ui-btn-icon-notext.ui-corner-all {
-			-webkit-border-radius: .3125em;
-			border-radius: .3125em;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RASP</title>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery.mobile-1.4.5.min.js"></script>
+    
+    <link rel="stylesheet" href="common.css">
 </head>
+
 <body>
+    <div data-role="page">
+        <div data-role="header" class="caption">
+            <div class="captionText">RASP Evaluation</div>
+            
+            <div data-role="controlgroup" data-type="horizontal" class="captionControl">
+                <a href="#" class="ui-btn ui-icon-refresh ui-btn-icon-left">SYNC</a>
+                <a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">LOGOUT</a>
+            </div>
+            
+        </div>
 
-
-		<h2>Corners</h2>
-
-		<div data-demo-html="true">
-			<button class="ui-btn ui-corner-all" onclick="alert(this.innerHTML);">Anchor</button>
-			<button class="ui-btn ui-corner-all" onclick="alert(this.innerHTML);">Button</button>
-            <button class="ui-btn ui-corner-all" onclick="alert(this.innerHTML);">Click Me</button>
-		</div><!--/demo-html -->
-
+        <div role="main" class="ui-content">
+            <a href="#" class="ui-shadow ui-btn ui-corner-all btn-space">New Evaluation</a>
+            <a href="#" class="ui-shadow ui-btn ui-corner-all btn-space">View Participants</a>
+            <a href="read_instruction.html" data-transition="pop" class="ui-shadow ui-btn ui-corner-all">Read Instructions</a>
+        </div>
+    </div>
 </body>
 </html>

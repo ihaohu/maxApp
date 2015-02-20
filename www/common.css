@@ -1,0 +1,51 @@
+
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+.caption {
+    background-color: DeepSkyBlue !important;
+    background-image: url("images/cross.svg");
+    background-size: 2em 2em;
+    background-repeat: no-repeat;
+    background-position: 1em 50%;
+    height: 2.5em;
+    border: 0px !important;
+}
+
+.captionText {
+    margin-left: 3.5em;
+    padding-top: 0.6em;
+    font-weight: bold;
+    width: 40%;
+    float: left;
+}
+
+.captionControl {
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+    width: 40%;
+    float: right;
+    text-align: right;
+    margin-right: 0.15em;
+}
+
+.btn-space {
+    margin-bottom: 1em;
+}
+
+.list {
+    line-height: 1.5em;
+}
+
+#custom-border-radius .ui-btn-icon-notext.ui-corner-all {
+    -webkit-border-radius: .3125em;
+    border-radius: .3125em;
+}
+
+.ui-dialog-contain {
+    width: 90%;
+    max-width: 90%;
+    margin: 5% auto 5% auto;
+}

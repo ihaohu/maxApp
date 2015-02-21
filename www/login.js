@@ -4,5 +4,6 @@ function getUser() {
 }
 
 function userLogin() {
-    
+    $("#popupLogin").popup("open");
+    //console.log('trigger login');
 }

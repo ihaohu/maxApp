@@ -43,6 +43,9 @@
                 $("#user_name").html('[' + getUser() + ']');
             } else {
                 var $el = $("<a href='#' data-role='button' data-icon='user' class='no-decoration'>LOGIN</a>");
+                $el.click(function() {
+                    userLogin();
+                });
                 $("#controls").controlgroup("container")["append"]($el);
                 $el.button();
             }
@@ -50,7 +53,7 @@
         }
         
         function requestLogin() {
-            $("#dialog_OK_head").html('Info');
+            $("#dialog_OK_head").html('Information');
             $("#dialog_OK_body").html('Please login first');
             $("#dialog_OK").popup("open");
         }
@@ -71,9 +74,14 @@
             });
         }
         
+        function initWidgets() {
+            $("#popupLogin").popup();
+        }
+        
         $(document).on("pageinit", function(event) {
             updateCaption();
             registerActions();
+            initWidgets();
         });
         
     </script>
@@ -84,9 +92,30 @@
         <div data-role="header" class="caption">
             <div class="captionText">RASP Evaluation<span id="user_name" class="user-name"></span></div>
             
-            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">
+            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl"></div>
             
+            
+            <!-- >>>>>>> -->
+            <!-- SIGN IN -->
+            <!-- >>>>>>> -->
+            <a id='popupLogin_A' href="#popupLogin" data-rel="dialog" data-transition="pop" style='display:none;'></a>
+            <div data-role="popup" id="popupLogin" data-theme="b" class="ui-corner-all">
+                <form>
+                    <div style="padding:10px 20px;">
+                      <h3>Please sign in</h3>
+                      <label for="un" class="ui-hidden-accessible">Username:</label>
+                      <input type="text" name="user" id="un" value="" placeholder="username" />
+
+                      <label for="pw" class="ui-hidden-accessible">Password:</label>
+                      <input type="password" name="pass" id="pw" value="" placeholder="password" />
+
+                      <button type="submit" data-theme="b">Sign in</button>
+                    </div>
+                </form>
             </div>
+            <!-- <<<<<<< -->
+            <!-- SIGN IN -->
+            <!-- <<<<<<< -->
             
         </div>
 
@@ -102,7 +131,6 @@
     
     
     <div id="include_dialog"></div>
-    
     
 </body>
 </html>

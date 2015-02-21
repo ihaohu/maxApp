@@ -9,25 +9,100 @@
     <script src="jquery.mobile-1.4.5.min.js"></script>
     
     <link rel="stylesheet" href="common.css">
+    <script src="login.js"></script>
+    
+    <script type="text/javascript">
+        $.ajax({
+            url: "read_instruction.html.inc",
+            success: function(response) {
+                $('#include_instruction').html(response);
+                $('#include_instruction').trigger("create");
+            }
+        });
+        
+        
+        $.ajax({
+            url: "dialog.html.inc",
+            success: function(response) {
+                $('#include_dialog').html(response);
+                $('#include_dialog').trigger("create");
+            }
+        });
+        
+        
+        function updateCaption() {
+            if(getUser()) {
+                var $el = $("<a href='#' data-role='button' data-icon='refresh' class='no-decoration'>SYNC</a>");
+                $("#controls").controlgroup("container")["append"]($el);
+                $el.button();
+                
+                $el = $("<a href='#' data-role='button' data-icon='user' class='no-decoration'>LOGOUT</a>");
+                $("#controls").controlgroup("container")["append"]($el);
+                $el.button();
+                
+                $("#user_name").html('[' + getUser() + ']');
+            } else {
+                var $el = $("<a href='#' data-role='button' data-icon='user' class='no-decoration'>LOGIN</a>");
+                $("#controls").controlgroup("container")["append"]($el);
+                $el.button();
+            }
+            $("#controls").controlgroup("refresh");
+        }
+        
+        function requestLogin() {
+            $("#dialog_OK_head").html('Info');
+            $("#dialog_OK_body").html('Please login first');
+            $("#dialog_OK").popup("open");
+        }
+        
+        function registerActions() {
+            $('#new_evaluation').click(function() {
+                if(!getUser()) {
+                    requestLogin();
+                    return;
+                }
+            });
+            
+            $('#view_participants').click(function() {
+                if(!getUser()) {
+                    requestLogin();
+                    return;
+                }
+            });
+        }
+        
+        $(document).on("pageinit", function(event) {
+            updateCaption();
+            registerActions();
+        });
+        
+    </script>
 </head>
 
 <body>
     <div data-role="page">
         <div data-role="header" class="caption">
-            <div class="captionText">RASP Evaluation</div>
+            <div class="captionText">RASP Evaluation<span id="user_name" class="user-name"></span></div>
             
-            <div data-role="controlgroup" data-type="horizontal" class="captionControl">
-                <a href="#" class="ui-btn ui-icon-refresh ui-btn-icon-left">SYNC</a>
-                <a href="#" class="ui-btn ui-icon-user ui-btn-icon-left">LOGOUT</a>
+            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">
+            
             </div>
             
         </div>
 
         <div role="main" class="ui-content">
-            <a href="#" class="ui-shadow ui-btn ui-corner-all btn-space">New Evaluation</a>
-            <a href="#" class="ui-shadow ui-btn ui-corner-all btn-space">View Participants</a>
-            <a href="read_instruction.html" data-transition="pop" class="ui-shadow ui-btn ui-corner-all">Read Instructions</a>
+            <a id="new_evaluation" href="#" class="ui-shadow ui-btn ui-corner-all btn-space">New Evaluation</a>
+            <a id="view_participants" href="#" class="ui-shadow ui-btn ui-corner-all btn-space">View Participants</a>
+            
+            <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-shadow ui-btn ui-corner-all">Read Instructions</a>
+            <div id="include_instruction"></div>
+            
         </div>
     </div>
+    
+    
+    <div id="include_dialog"></div>
+    
+    
 </body>
 </html>

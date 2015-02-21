@@ -39,6 +39,15 @@ body {
     line-height: 1.5em;
 }
 
+.no-decoration {
+    text-decoration: none;
+}
+
+.user-name {
+    margin-left: 1em;
+    text-decoration: underline;
+}
+
 #custom-border-radius .ui-btn-icon-notext.ui-corner-all {
     -webkit-border-radius: .3125em;
     border-radius: .3125em;
@@ -48,4 +57,8 @@ body {
     width: 90%;
     max-width: 90%;
     margin: 5% auto 5% auto;
+}
+
+.dialog {
+    min-width: 300px !important;
 }

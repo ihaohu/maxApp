@@ -12,6 +12,7 @@
     <script src="login.js"></script>
     
     <script type="text/javascript">
+        
         $.ajax({
             url: "read_instruction.html.inc",
             success: function(response) {
@@ -30,24 +31,35 @@
         });
         
         
+        $.ajax({
+            url: "bubble.html.inc",
+            success: function(response) {
+                $('#include_bubble').html(response);
+            }
+        });
+        
+        
         function updateCaption() {
+            $("#controls").controlgroup("container").empty();
             if(getUser()) {
-                var $el = $("<a href='#' data-role='button' data-icon='refresh' class='no-decoration'>SYNC</a>");
-                $("#controls").controlgroup("container")["append"]($el);
-                $el.button();
+                var $el = $("<a href='#' class='ui-btn ui-icon-refresh ui-btn-icon-left'>SYNC</a>");
+                $("#controls").controlgroup("container").append($el);
                 
-                $el = $("<a href='#' data-role='button' data-icon='user' class='no-decoration'>LOGOUT</a>");
-                $("#controls").controlgroup("container")["append"]($el);
-                $el.button();
+                var $el = $("<a href='#' class='ui-btn ui-icon-user ui-btn-icon-left'>LOGOUT</a>");
+                $el.click(function() {
+                    userLogout();
+                });
+                $("#controls").controlgroup("container").append($el);
                 
                 $("#user_name").html('[' + getUser() + ']');
             } else {
-                var $el = $("<a href='#' data-role='button' data-icon='user' class='no-decoration'>LOGIN</a>");
+                var $el = $("<a href='#' class='ui-btn ui-icon-user ui-btn-icon-left'>LOGIN</a>");
                 $el.click(function() {
-                    userLogin();
+                    $("#popup_login").popup("open");
                 });
-                $("#controls").controlgroup("container")["append"]($el);
-                $el.button();
+                $("#controls").controlgroup("container").append($el);
+                
+                $("#user_name").html("");
             }
             $("#controls").controlgroup("refresh");
         }
@@ -74,14 +86,36 @@
             });
         }
         
+        function showBubble(msg) {
+            $('#bubble_msg').html(msg);
+            $('#include_bubble').show();
+        }
+        
+        function hideBubble() {
+            $('#include_bubble').hide();
+        }
+        
         function initWidgets() {
-            $("#popupLogin").popup();
+            $("#popup_login").popup();
+            hideBubble();
         }
         
         $(document).on("pageinit", function(event) {
             updateCaption();
             registerActions();
             initWidgets();
+        });
+        
+        $(document).on('click', "#btn_sign_in", function(e) {
+            e.preventDefault();
+            $("#popup_login").popup("close");
+            
+            showBubble("Login...");
+            if(userLogin($("#un").val(), $("#pw").val())) {
+                console.log('login OK');
+            } else {
+                console.log('logain failed');
+            }
         });
         
     </script>
@@ -98,8 +132,8 @@
             <!-- >>>>>>> -->
             <!-- SIGN IN -->
             <!-- >>>>>>> -->
-            <a id='popupLogin_A' href="#popupLogin" data-rel="dialog" data-transition="pop" style='display:none;'></a>
-            <div data-role="popup" id="popupLogin" data-theme="b" class="ui-corner-all">
+            <a id='popup_login_A' href="#popup_login" data-rel="dialog" data-transition="pop" style='display:none;'></a>
+            <div data-role="popup" id="popup_login" data-theme="b" class="ui-corner-all">
                 <form>
                     <div style="padding:10px 20px;">
                       <h3>Please sign in</h3>
@@ -109,7 +143,7 @@
                       <label for="pw" class="ui-hidden-accessible">Password:</label>
                       <input type="password" name="pass" id="pw" value="" placeholder="password" />
 
-                      <button type="submit" data-theme="b">Sign in</button>
+                      <button id="btn_sign_in" type="submit" data-theme="b">Sign in</button>
                     </div>
                 </form>
             </div>
@@ -119,7 +153,7 @@
             
         </div>
 
-        <div role="main" class="ui-content">
+        <div role="main" class="ui-content" style="overflow: hidden;">
             <a id="new_evaluation" href="#" class="ui-shadow ui-btn ui-corner-all btn-space">New Evaluation</a>
             <a id="view_participants" href="#" class="ui-shadow ui-btn ui-corner-all btn-space">View Participants</a>
             
@@ -131,6 +165,7 @@
     
     
     <div id="include_dialog"></div>
+    <div id="include_bubble"></div>
     
 </body>
 </html>

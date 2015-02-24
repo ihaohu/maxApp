@@ -6,26 +6,26 @@ body {
 
 .caption {
     background-color: DeepSkyBlue !important;
-    background-image: url("images/cross.svg");
+    background-image: url("images/rasp.svg");
     background-size: 2em 2em;
     background-repeat: no-repeat;
-    background-position: 1em 50%;
+    background-position: 0.25em 50%;
     height: 2.5em;
     border: 0px !important;
 }
 
 .captionText {
-    margin-left: 3.5em;
+    margin-left: 2.5em;
     padding-top: 0.6em;
     font-weight: bold;
-    width: 40%;
+    width: 45%;
     float: left;
 }
 
 .captionControl {
     margin-top: 0.15em;
     margin-bottom: 0.15em;
-    width: 40%;
+    width: 45%;
     float: right;
     text-align: right;
     margin-right: 0.15em;
@@ -46,6 +46,8 @@ body {
 .user-name {
     margin-left: 1em;
     text-decoration: underline;
+    text-shadow: none;
+    font-size: 0.75em;
 }
 
 #custom-border-radius .ui-btn-icon-notext.ui-corner-all {
@@ -59,6 +61,57 @@ body {
     margin: 5% auto 5% auto;
 }
 
+
+.ui-listview>.ui-li-static {
+    padding: 0.2em 0 0 0 !important;
+}
+
 .dialog {
     min-width: 300px !important;
 }
+
+.select {
+    margin-top: 1.8em !important;
+    font-style: italic;
+}
+
+
+.rating {
+    width: 90px;
+    text-align: center !important;
+}
+
+.raitingCaption {
+    margin-top: 1em;
+    font-style: italic;
+}
+
+
+/* Tick Marks */
+.sliderTickmarks{
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+    height: 100%;
+    width: 20%;    
+    float: left;
+    border-right: 1px solid #888;
+}
+.sliderTickmarks span{
+    position: relative;
+    left: 100%;
+    top: 150%;
+    margin-left: -10px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.ui-slider-track > div.sliderTickmarks:first-child{
+    border-right: 0;
+    width: 0;
+}
+.ui-slider-track > div.sliderTickmarks:first-child span{
+    margin-left: -5px;
+}
+.ui-slider-track > div.sliderTickmarks:last-of-type{
+     border-right: 0;
+}
+/* Tick Marks */

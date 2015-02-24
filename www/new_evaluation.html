@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RASP</title>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery.mobile-1.4.5.min.js"></script>
+    
+    <link rel="stylesheet" href="common.css">
+    <script src="login.js"></script>
+    
+    <script type="text/javascript">
+        
+        $.ajax({
+            url: "read_instruction.html.inc",
+            success: function(response) {
+                $('#include_instruction').html(response);
+                $('#include_instruction').trigger("create");
+            }
+        });
+        
+        
+        $.ajax({
+            url: "dialog.html.inc",
+            success: function(response) {
+                $('#include_dialog').html(response);
+                $('#include_dialog').trigger("create");
+            }
+        });
+        
+        
+        function addOptionsToSelect(select, options) {
+            select.empty();
+            for(var i=0; i < options.length; i++)
+                select.append($('<option>').val(options[i]).text(options[i]));
+            select.trigger("change");
+        }
+        
+        function initSelect() {
+            var select_visit_list = [
+                "Pre training",
+                "Post training",
+                "Retention",
+            ];
+            
+            addOptionsToSelect($("#select_visit"), select_visit_list);
+            
+            var select_participant_name_list = [
+                "0: Chris Lebrun",
+                "21: Brenessa Lindaman",
+                "22: Issac Howley",
+                "23: Noelle Saillant",
+                "24: Sean Davitt",
+                "25: Graham Laurence",
+                "26: Franz Yanagawa",
+                "27: Seth Goldstein",
+                "28: Vicente Valero",
+                "29: Susan Kartiko",
+                "30: Zoe Maher",
+                "31: Phil Batista",
+                "32: Melissa Miles",
+                "33: Orandi Babak",
+                "34: Andrew Dhanasopon",
+                "35: Trevor Ellison",
+                "36: Kevin Soares",
+                "37: Joshua Marks",
+                "38: Hochman Beth",
+                "39: John Jacob",
+                "40 Farah Karipineni",
+                "41: Don Harris",
+                "42: Hope Jackson",
+                "43: Karima Fitzgerald",
+                "44: Amarta Klar",
+                "45: Heidi Miller",
+                "46: Lauanne Force",
+                "47: Mohamed Barry",
+                "48: Kathleen Lamb",
+                "49: Meredith Harrison",
+                "50: Christopher Kang",
+                "51: Carolyn Parama",
+                "52: Amruta Unawane",
+                "53: Lisa Kodadek",
+                "54: Betsy King",
+                "55: Bobby Beaulieu",
+                "56: David Dockray",
+                "999: Somebody Else",
+            ];
+            
+            addOptionsToSelect($("#select_participant_name"), select_participant_name_list);
+            
+            var select_procedure_list = [
+                "Axillary Artery, Foxtrot",
+                "Brachial Artery, Foxtrot",
+                "Femoral Artery, Foxtrot",
+                "Fasciotomy, Foxtrot",
+                "Axillary Artery, Lima",
+                "Brachial Artery, Lima",
+                "Femoral Artery, Lima",
+                "Fasciotomy, Lima",
+                "Axillary Artery Abridged, Oscar",
+                "Brachial Artery Abridged, Oscar",
+                "Femoral Artery Abridged, Oscar",
+                "Fasciotomy Abridged, Oscar",
+                "Axillary Artery, Tango",
+                "Brachial Artery, Tango",
+                "Femoral Artery, Tango",
+                "Fasciotomy, Tango",
+                "Axillary Artery Abridged, X-ray",
+                "Brachial Artery Abridged, X-ray",
+                "Femoral Artery Abridged, X-ray",
+                "Fasciotomy Abridged, X-ray",
+            ];
+            
+            addOptionsToSelect($("#select_procedure"), select_procedure_list);
+            
+            var select_type_list = [
+                "Cadaver",
+                "Simulated Model",
+            ];
+            
+            addOptionsToSelect($("#select_type"), select_type_list);
+        }
+        
+        $(document).on("pageinit", function(event) {
+            $("#user_name").html('[' + getUser() + ']');
+            initSelect();
+        });
+        
+        $(document).on('click', "#go_home", function(e) {
+            window.location = "index.html";
+        });
+        
+        $(document).on('click', "#evaluation", function(e) {
+            window.location = "evaluation.html";
+        });
+        
+    </script>
+</head>
+
+<body>
+    <div data-role="page">
+        <div data-role="header" class="caption">
+            <div class="captionText">New Evaluation<span id="user_name" class="user-name"></span></div>
+            
+            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">
+                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-info ui-btn-icon-left">Instructions</a>
+                <a id="go_home" href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+                
+                 <div id="include_instruction"></div>
+            </div>
+        </div>
+
+        <div role="main" class="ui-content" style="overflow: hidden;">
+            <form>
+                <label for="select_visit" class="select">Visit</label>
+                <select name="select_visit" id="select_visit" data-native-menu="false">
+                </select>
+                
+                <label for="select_participant_name" class="select">Participant Name</label>
+                <select name="select_participant_name" id="select_participant_name" data-native-menu="false">
+                </select>
+                
+                <label for="select_procedure" class="select">Procedure</label>
+                <select name="select_procedure" id="select_procedure" data-native-menu="false">
+                </select>
+                
+                <label for="select_type" class="select">Type</label>
+                <select name="select_type" id="select_type" data-native-menu="false">
+                </select>
+            </form>
+        </div>
+        
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+            <ul>
+                <li><a id="evaluation" href="#" data-transition="fade" data-theme="b">Begin Evaluation</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="include_dialog"></div>
+</body>
+</html>

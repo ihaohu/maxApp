@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RASP</title>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery.mobile-1.4.5.min.js"></script>
+    
+    <link rel="stylesheet" href="common.css">
+    <script src="login.js"></script>
+    
+    <script type="text/javascript">
+        
+        $.ajax({
+            url: "read_instruction.html.inc",
+            success: function(response) {
+                $('#include_instruction').html(response);
+                $('#include_instruction').trigger("create");
+            }
+        });
+        
+        
+        $.ajax({
+            url: "dialog.html.inc",
+            success: function(response) {
+                $('#include_dialog').html(response);
+                $('#include_dialog').trigger("create");
+            }
+        });
+        
+        $(document).on("pageinit", function(event) {
+            $("#user_name").html('[' + getUser() + ']');
+        });
+        
+        $(document).on('click', "#go_home", function(e) {
+            window.location = "index.html";
+        });
+        
+        $(document).on('click', "#btn_done", function(e) {
+            e.preventDefault();
+            /*
+            console.log($("#form1"));
+            */
+            $("#form1 :input").each(function() {
+                console.log(this);
+            });
+        });
+        
+        
+        
+        $(document).on("pagecreate", "#page1", function(){
+            //EXAMPLE 2a - add tick marks to slider track    
+            var ticks  = '<div class="sliderTickmarks "><span>50%</span></div>';
+                ticks += '<div class="sliderTickmarks "><span>60%</span></div>';
+                ticks += '<div class="sliderTickmarks "><span>70%</span></div>';
+                ticks += '<div class="sliderTickmarks "><span>80%</span></div>';
+                ticks += '<div class="sliderTickmarks "><span>90%</span></div>';
+                ticks += '<div class="sliderTickmarks "><span>100%</span></div>';
+            
+            $("#slider-3div .ui-slider-track").prepend(ticks);
+            
+        });
+        
+        
+        
+    </script>
+</head>
+
+<body>
+    <form id="form1">
+    
+    <div data-role="page" id="page1">
+        <div data-role="header" class="caption">
+            <div class="captionText"><span id="current_step">New Evaluation</span><span id="user_name" class="user-name"></span></div>
+            
+            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">
+                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-info ui-btn-icon-left">Instructions</a>
+                <a id="go_home" href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            </div>
+        </div>
+        
+        <div class="ui-bar ui-bar-a">
+            <div id="current_question">Question 1</div>
+        </div>
+
+        <div role="main" class="ui-content" style="overflow: hidden;">
+                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
+                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Brachial Artery</div>
+                    <div class="ui-block-b" style="text-align: left;">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="YES">
+                            <label for="radio-choice-h-2a">YES</label>
+                            <input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="NO">
+                            <label for="radio-choice-h-2b">NO</label>
+                        </fieldset>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
+                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Median Nerve</div>
+                    <div class="ui-block-b" style="text-align: left;">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="radio-choice-h-3" id="radio-choice-h-3a" value="YES">
+                            <label for="radio-choice-h-3a">YES</label>
+                            <input type="radio" name="radio-choice-h-3" id="radio-choice-h-3b" value="NO">
+                            <label for="radio-choice-h-3b">NO</label>
+                        </fieldset>
+                    </div>
+                </div>
+                
+                
+                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
+                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Veins</div>
+                    <div class="ui-block-b" style="text-align: left;">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="radio-choice-h-4" id="radio-choice-h-4a" value="YES">
+                            <label for="radio-choice-h-4a">YES</label>
+                            <input type="radio" name="radio-choice-h-4" id="radio-choice-h-4b" value="NO">
+                            <label for="radio-choice-h-4b">NO</label>
+                        </fieldset>
+                    </div>
+                </div>
+                
+                <div class="ui-bar ui-bar-a" style="margin-top: 2em;">Errors</div>
+                <div class="ui-grid-a" style="border-bottom: 1px solid gray; background-color: pink;">
+                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Veins</div>
+                    <div class="ui-block-b" style="text-align: left;">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="radio-choice-h-5" id="radio-choice-h-5a" value="YES">
+                            <label for="radio-choice-h-5a">YES</label>
+                            <input type="radio" name="radio-choice-h-5" id="radio-choice-h-5b" value="NO">
+                            <label for="radio-choice-h-5b">NO</label>
+                        </fieldset>
+                    </div>
+                </div>
+                <div style="text-align: justify;">*The above tests are acceptable possible studies but the participant should clearly indicate these tests should only be done in a hemodynamically stable patient.</div>
+                
+                
+                <div id="slider-3div">
+                    <label for="slider-3">Both options together:</label>
+                    <input type="range" name="slider-3" id="slider-3" min="50" max="100" value="50" data-show-value="true" data-popup-enabled="true">
+                </div>
+                
+                
+                <div class="raitingCaption">Continually progresses towards the end goal</div>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <input type="radio" name="radio-choice-h-6" id="radio-choice-h-6a" value="Poor">
+                    <label for="radio-choice-h-6a" class="rating">Poor</label>
+                    <input type="radio" name="radio-choice-h-6" id="radio-choice-h-6b" value="Fair">
+                    <label for="radio-choice-h-6b" class="rating">Fair</label>
+                    <input type="radio" name="radio-choice-h-6" id="radio-choice-h-6c" value="Good">
+                    <label for="radio-choice-h-6c" class="rating">Good</label>
+                    <input type="radio" name="radio-choice-h-6" id="radio-choice-h-6d" value="Very Good">
+                    <label for="radio-choice-h-6d" class="rating">Very Good</label>
+                    <input type="radio" name="radio-choice-h-6" id="radio-choice-h-6e" value="Excellent">
+                    <label for="radio-choice-h-6e" class="rating">Excellent</label>
+                </fieldset>
+                
+                
+                
+                
+                <label for="textarea" style="margin-top: 2em;">Comments:</label>
+                <textarea name="comment" id="comment"></textarea>
+            
+            
+            
+            
+        </div>
+        
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+            <ul>
+                <li><a href="#page2" data-transition="fade" data-theme="b">Next</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div data-role="page" id="page2">
+        <div data-role="header" class="caption">
+            <div class="captionText"><span id="current_step">New Evaluation</span><span id="user_name" class="user-name"></span></div>
+            
+            <div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">
+                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-info ui-btn-icon-left">Instructions</a>
+                <a id="go_home" href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+                
+            </div>
+        </div>
+        
+        <div class="ui-bar ui-bar-a">
+            <div id="current_question_2">Question 2</div>
+        </div>
+
+        <div role="main" class="ui-content" style="overflow: hidden;">
+                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
+                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Brachial Artery</div>
+                    <div class="ui-block-b" style="text-align: left;">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="radio-choice-h-22" id="radio-choice-h-22a" value="YES">
+                            <label for="radio-choice-h-22a">YES</label>
+                            <input type="radio" name="radio-choice-h-22" id="radio-choice-h-22b" value="NO">
+                            <label for="radio-choice-h-22b">NO</label>
+                        </fieldset>
+                    </div>
+                </div>
+            
+            
+        </div>
+        
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+            <ul>
+                <li><a href="#page1" data-transition="fade" data-theme="b">Prev</a></li>
+                <li><button id="btn_done" type="submit" data-theme="b">DONE</button></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    
+    
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="include_instruction"></div>
+    <div id="include_dialog"></div>
+</body>
+</html>

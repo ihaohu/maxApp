@@ -76,11 +76,6 @@ body {
 }
 
 
-.rating {
-    width: 90px;
-    text-align: center !important;
-}
-
 .raitingCaption {
     margin-top: 1em;
     font-style: italic;
@@ -115,3 +110,7 @@ body {
      border-right: 0;
 }
 /* Tick Marks */
+
+.btn-footer {
+    padding: 1.25em 1.25em;
+}

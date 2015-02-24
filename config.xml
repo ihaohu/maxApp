@@ -9,7 +9,7 @@
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />
-    <preference name="orientation" value="default" />
+    <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
@@ -37,5 +37,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <icon src="res/icon.png" />
     <gap:splash src="res/splash.jpg" />
+    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/splash_720x1280.png" />
+    <gap:splash gap:platform="android" gap:qualifier="land-xhdpi" src="res/splash_1280x720.png" />
     <access origin="*" />
 </widget>

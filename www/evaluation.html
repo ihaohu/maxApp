@@ -13,6 +13,22 @@
     
     <script type="text/javascript">
         
+        function showBubble(msg) {
+            $('#bubble_msg').html(msg);
+            $('#include_bubble').show();
+        }
+        
+        function hideBubble() {
+            $('#include_bubble').hide();
+        }
+    
+        $.ajax({
+            url: "bubble.html.inc",
+            success: function(response) {
+                $('#include_bubble').html(response);
+            }
+        });
+        
         $.ajax({
             url: "read_instruction.html.inc",
             success: function(response) {
@@ -35,6 +51,12 @@
             url: "question1.txt",
             success: function(response) {
                 generatePages(response);
+            },
+            beforeSend : function() {
+                showBubble('loading...');
+            },
+            complete: function() {
+                hideBubble();
             }
         });
         
@@ -69,23 +91,26 @@
         });
         */
         
-        function simpleFormat(html, needBold) {
-            var ret = html;
-            if(needBold)
+        function simpleFormat(item) {
+            var ret = item.content;
+            if(item.bold)
                 ret = '<b>' + ret + '</b>';
+            
+            if(item.italic)
+                ret = '<i>' + ret + '</i>';
                 
             return ret;
         }
         
         function appendItem(item, parent, pageId, id) {
             if(item.type == "text") {
-                $('<p>').attr({class: "evaluationBodyText"}).html(simpleFormat(item.content, item.bold)).appendTo(parent);
+                $('<p>').attr({class: "evaluationBodyText"}).html(simpleFormat(item)).appendTo(parent);
             } else if(item.type == "question") {
                 switch(item.sub_type) {
                     case "yesno":
                         var thisID = pageId + '_yesno_' + id;
                         var htmlPiece = '<tr>' + "\n";
-                        htmlPiece += '<td>' + simpleFormat(item.content, item.bold) + '</td>' + "\n";
+                        htmlPiece += '<td>' + simpleFormat(item) + '</td>' + "\n";
                         htmlPiece += '<td class="evaluationBodyYesNo">' + "\n";
                         htmlPiece += '<fieldset data-role="controlgroup" data-type="horizontal">' + "\n";
                         htmlPiece += '<input type="radio" name="' + thisID + '" id="' + thisID + '_y" value="YES">' + "\n";
@@ -95,7 +120,10 @@
                         htmlPiece += '</fieldset>' + "\n";
                         htmlPiece += '</td>' + "\n";
                         htmlPiece += '</tr>' + "\n";
-                        $('<table>').attr({class: "evaluationBodyTable"}).html(htmlPiece).appendTo(parent);
+                        var thisEntry = $('<table>').attr({class: "evaluationBodyTable"}).html(htmlPiece);
+                        if(item.style)
+                            thisEntry.attr("style", item.style);
+                        thisEntry.appendTo(parent);
                         break;
                     
                     case "comment":
@@ -103,6 +131,10 @@
                         var htmlPiece = '<label for="' + thisID + '">Comments:</label>' + "\n";
                         htmlPiece += '<textarea name="' + thisID +'" id="' + thisID + '"></textarea>' + "\n";
                         $('<div>').attr({class: "evaluationBodyComment"}).html(htmlPiece).appendTo(parent);
+                        break;
+                        
+                    case "space":
+                        $('<div>').attr("style", "height: " + item.size).appendTo(parent);
                         break;
                 }
             }
@@ -375,6 +407,7 @@
     
     <div id="include_instruction"></div>
     <div id="include_dialog"></div>
+    <div id="include_bubble"></div>
     
 </body>
 </html>

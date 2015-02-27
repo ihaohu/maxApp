@@ -4,6 +4,7 @@ function getUser() {
 }
 
 function userLogin(un, pw) {
+    /*
     $.ajax({
         url: "http://192.168.25.33:5555/login.php?un=" + un + "&pw=" + pw,
         success: function(response) {
@@ -23,6 +24,11 @@ function userLogin(un, pw) {
     });
     
     return false;
+    */
+    localStorage.setItem('user', un);
+    updateCaption();
+    hideBubble();
+    return true;
 }
 
 

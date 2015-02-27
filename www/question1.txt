@@ -73,8 +73,7 @@
                 {
                     "type": "question",
                     "sub_type": "comment",
-                    "allow_empty": true,
-                    "content": "Bones"
+                    "allow_empty": true
                 }
             ]
         },
@@ -193,8 +192,111 @@
                 {
                     "type": "question",
                     "sub_type": "comment",
-                    "allow_empty": true,
-                    "content": "Bones"
+                    "allow_empty": true
+                }
+            ]
+        },
+        
+        {
+            "id": "Page3",
+            "caption": "Question 3",
+            "body": [
+                
+                {
+                    "type": "text",
+                    "content": "The patient's blood pressure is 85/65 and HR 110 and is unable to move his arm, has decreased sensation and absent brachial, radial, and ulnar pulses."
+                },
+                
+                {
+                    "type": "text",
+                    "bold": true,
+                    "content": "What additional studies would you preform to help you identify or rule out specific injuries in this patient?"
+                },
+                
+                {
+                    "type": "text",
+                    "italic": true,
+                    "content": "Note: [Advance slide to show Chest X-Ray]"
+                },
+                
+                {
+                    "type": "text",
+                    "content": "The participant described each of the following as additional studies"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "FAST exam to look for pericardial tamponade, hemothorax, pneumothorax"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Chest X-ray"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "A marker (e.g. paperclip) is placed to mark wound prior to x-ray"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "CT of Chest"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "CT of Angiogram"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Angiogram"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "space",
+                    "size": "2em"
+                },
+                
+                {
+                    "type": "text",
+                    "bold": true,
+                    "content": "Errors"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "style": "background-color: pink;",
+                    "content": "Fails to obtain CXR"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "style": "background-color: pink;",
+                    "content": "Innapropriate use of CT and Angio*"
+                },
+                
+                {
+                    "type": "text",
+                    "content": "*All of the above tests are acceptable possible studies but the participant should clearly indicate these tests should only be done in a hemodynamically stable patient. Without this qualifier, performing any of these tests prior to taking this patient to the OR has potential from negative outcome and should result in negative value scoring."
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "comment",
+                    "allow_empty": true
                 }
             ]
         }

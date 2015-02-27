@@ -30,6 +30,15 @@
             }
         });
         
+        
+        $.ajax({
+            url: "question1.txt",
+            success: function(response) {
+                generatePages(response);
+            }
+        });
+        
+        
         $(document).on("pageinit", function(event) {
             $("#user_name").html('[' + getUser() + ']');
         });
@@ -38,20 +47,17 @@
             window.location = "index.html";
         });
         
+        
+        /*
         $(document).on('click', "#btn_done", function(e) {
             e.preventDefault();
-            /*
-            console.log($("#form1"));
-            */
             $("#form1 :input").each(function() {
                 console.log(this);
             });
         });
         
         
-        
         $(document).on("pagecreate", "#page1", function(){
-            //EXAMPLE 2a - add tick marks to slider track    
             var ticks  = '<div class="sliderTickmarks "><span>50%</span></div>';
                 ticks += '<div class="sliderTickmarks "><span>60%</span></div>';
                 ticks += '<div class="sliderTickmarks "><span>70%</span></div>';
@@ -60,15 +66,145 @@
                 ticks += '<div class="sliderTickmarks "><span>100%</span></div>';
             
             $("#slider-3div .ui-slider-track").prepend(ticks);
-            
         });
+        */
         
+        function simpleFormat(html, needBold) {
+            var ret = html;
+            if(needBold)
+                ret = '<b>' + ret + '</b>';
+                
+            return ret;
+        }
         
+        function appendItem(item, parent, pageId, id) {
+            if(item.type == "text") {
+                $('<p>').attr({class: "evaluationBodyText"}).html(simpleFormat(item.content, item.bold)).appendTo(parent);
+            } else if(item.type == "question") {
+                switch(item.sub_type) {
+                    case "yesno":
+                        var thisID = pageId + '_yesno_' + id;
+                        var htmlPiece = '<tr>' + "\n";
+                        htmlPiece += '<td>' + simpleFormat(item.content, item.bold) + '</td>' + "\n";
+                        htmlPiece += '<td class="evaluationBodyYesNo">' + "\n";
+                        htmlPiece += '<fieldset data-role="controlgroup" data-type="horizontal">' + "\n";
+                        htmlPiece += '<input type="radio" name="' + thisID + '" id="' + thisID + '_y" value="YES">' + "\n";
+                        htmlPiece += '<label for="' + thisID + '_y">YES</label>' + "\n";
+                        htmlPiece += '<input type="radio" name="' + thisID + '" id="' + thisID + '_n" value="NO">' + "\n";
+                        htmlPiece += '<label for="' + thisID + '_n">NO</label>' + "\n";
+                        htmlPiece += '</fieldset>' + "\n";
+                        htmlPiece += '</td>' + "\n";
+                        htmlPiece += '</tr>' + "\n";
+                        $('<table>').attr({class: "evaluationBodyTable"}).html(htmlPiece).appendTo(parent);
+                        break;
+                    
+                    case "comment":
+                        var thisID = pageId + '_comment_' + id;
+                        var htmlPiece = '<label for="' + thisID + '">Comments:</label>' + "\n";
+                        htmlPiece += '<textarea name="' + thisID +'" id="' + thisID + '"></textarea>' + "\n";
+                        $('<div>').attr({class: "evaluationBodyComment"}).html(htmlPiece).appendTo(parent);
+                        break;
+                }
+            }
+        }
         
+        function generatePages(json) {
+            var q = JSON.parse(json);
+            
+            var body = $('body');
+            var form = $('#form0');
+            
+            var firstPage;
+            for(var n=0; n<q.pages.length; n++) {
+                var thisPage = q.pages[n];
+                
+                if(n == 0)
+                    firstPage = thisPage.id;
+                
+                var divPage = $('<div>').attr({'data-role': 'page', id: thisPage.id});
+                    
+                    //
+                    // Head
+                    //
+                    var divHead = $('<div>').attr({'data-role': 'header', class: "caption"});
+                        
+                        var htmlPiece = '<div class="captionText"><span id="current_step">New Evaluation</span><span id="user_name" class="user-name"></span></div>' + "\n";
+                        htmlPiece += '<div id="controls" data-role="controlgroup" data-type="horizontal" class="captionControl">' + "\n";
+                        htmlPiece += '<a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-info ui-btn-icon-left">Instructions</a>' + "\n";
+                        htmlPiece += '<a id="go_home" href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>' + "\n";
+                        htmlPiece += '</div>' + "\n";
+                        
+                    divHead.html(htmlPiece);
+                    divHead.appendTo(divPage);
+                    
+                    //
+                    // Bar
+                    //
+                    if(thisPage.caption) {
+                        var divBar = $('<div>').attr({class: "ui-bar ui-bar-a"}).html('<div id="current_question">' + thisPage.caption + '</div>' + "\n");
+                        divBar.appendTo(divPage);
+                    }
+                    
+                    var thisBody = q.pages[n].body;
+                    var main = null;
+                    for(var i=0; i<thisBody.length; i++) {
+                        var item = thisBody[i];
+                        
+                        if(i==0 && item.type == "caption") {
+
+                            continue;
+                        }
+                        
+                        if(!main)
+                            main = $('<div>').attr({role: "main", class: "ui-content evaluationBody"});
+                        
+                        appendItem(item, main, thisPage.id, i);
+                    }
+                    
+                    //
+                    // main
+                    //
+                    if(main)
+                        main.appendTo(divPage);
+                    
+                    //
+                    // Footer
+                    //
+                    var divFooter = $('<div>').attr({'data-role': 'footer', 'data-position': 'fixed'});
+                    
+                    var htmlPiece = '<div data-role="navbar">' + "\n";
+                    htmlPiece += '<ul>' + "\n";
+                    
+                    
+                    if(n>0)
+                        htmlPiece += '<li><a href="#' + q.pages[n-1].id + '" data-transition="fade" data-theme="b" class="btn-footer">Prev</a></li>' + "\n";
+                        
+                    if(n<q.pages.length - 1)
+                        htmlPiece += '<li><a href="#' + q.pages[n+1].id + '" data-transition="fade" data-theme="b" class="btn-footer">Next</a></li>' + "\n";
+                    
+                        
+                    htmlPiece += '</ul>' + "\n";
+                    htmlPiece += '</div>' + "\n";
+                    
+                    divFooter.html(htmlPiece);
+                    divFooter.appendTo(divPage);
+                    
+                    
+                divPage.appendTo(form);
+            }
+            
+            $('body').trigger("create");
+            window.location = "#" + firstPage;
+        }
     </script>
 </head>
 
 <body>
+    <form id="form0">
+        <div data-role="page" id="page0">
+        </div>
+    </form>
+    <!--
     <form id="form1">
     
     <div data-role="page" id="page1">
@@ -85,7 +221,7 @@
             <div id="current_question">Question 1</div>
         </div>
 
-        <div role="main" class="ui-content" style="overflow: hidden;">
+        <div role="main" class="ui-content" style="overflow: hidden; padding-left: 2em; padding-right: 2em;">
                 <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
                     <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Brachial Artery</div>
                     <div class="ui-block-b" style="text-align: left;">
@@ -98,32 +234,33 @@
                     </div>
                 </div>
                 
-                
-                
-                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
-                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Median Nerve</div>
-                    <div class="ui-block-b" style="text-align: left;">
+                <table style="border-bottom: 1px solid lightgray; width: 100%;">
+                    <tr>
+                    <td>Median Nerve</td>
+                    <td style="width: 8em; text-align: right;">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="radio-choice-h-3" id="radio-choice-h-3a" value="YES">
                             <label for="radio-choice-h-3a">YES</label>
                             <input type="radio" name="radio-choice-h-3" id="radio-choice-h-3b" value="NO">
                             <label for="radio-choice-h-3b">NO</label>
                         </fieldset>
-                    </div>
-                </div>
+                    </td>
+                    </tr>
+                </table>
                 
-                
-                <div class="ui-grid-a" style="border-bottom: 1px solid lightgray;">
-                    <div class="ui-block-a" style="line-height: 4em; text-align: right; padding-right: 2em;">Veins</div>
-                    <div class="ui-block-b" style="text-align: left;">
+                <table style="border-bottom: 1px solid lightgray; width: 100%;">
+                    <tr>
+                    <td>Indicates that any or all of above are hard signs of vascular injury</td>
+                    <td style="width: 8em; text-align: right;">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="radio-choice-h-4" id="radio-choice-h-4a" value="YES">
                             <label for="radio-choice-h-4a">YES</label>
                             <input type="radio" name="radio-choice-h-4" id="radio-choice-h-4b" value="NO">
                             <label for="radio-choice-h-4b">NO</label>
                         </fieldset>
-                    </div>
-                </div>
+                    </td>
+                    </tr>
+                </table>
                 
                 <div class="ui-bar ui-bar-a" style="margin-top: 2em;">Errors</div>
                 <div class="ui-grid-a" style="border-bottom: 1px solid gray; background-color: pink;">
@@ -233,35 +370,11 @@
         </div>
     </div>
     
-    
     </form>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    -->
     
     <div id="include_instruction"></div>
     <div id="include_dialog"></div>
+    
 </body>
 </html>

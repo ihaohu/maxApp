@@ -1,0 +1,203 @@
+{
+    "name": "question1",
+    
+    "pages": [
+        {
+            "id": "Page1",
+            "caption": "Question 1",
+            "body": [
+                
+                {
+                    "type": "text",
+                    "bold": true,
+                    "content": "What are the structures you suspect could be injured along the path of the bullet?"
+                },
+                
+                {
+                    "type": "text",
+                    "content": "The participant described each of the following as potentially injured"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Axillary Artery"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Axillary Vein"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Brachial Plexus"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Lung"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Subclavian Artery"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Subclavian Vein"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Mediastinal structures"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Bones"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "comment",
+                    "allow_empty": true,
+                    "content": "Bones"
+                }
+            ]
+        },
+        
+        {
+            "id": "Page2",
+            "caption": "Question 2",
+            "body": [
+                
+                {
+                    "type": "text",
+                    "bold": true,
+                    "content": "What physical finding will you look for to help you decide which structures are injured? Include signs of vascular, thoracic, nerve, and bone injury."
+                },
+                
+                {
+                    "type": "text",
+                    "content": "The participant described each of the following physical findings and tests"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Decreased breath sounds"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Active arterial bleeding"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Enlarging or expanding Hematoma"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Absent distal pulses"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "bold": true,
+                    "content": "Distal Ischemia"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Bruit or palpable thrill"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Indicates that any or all of above are hard signs of vascular injury"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Active venous bleeding"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Unequal blood pressure, decreased Brachial-Brachial Index"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Doppler pulses - diminished flow"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Sensory loss"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Loss of motor function - weakness, inability to move arm"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Bony instability, deformation, crepitus"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Sub-cutaneous air"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "yesno",
+                    "content": "Tracheal deviation"
+                },
+                
+                {
+                    "type": "question",
+                    "sub_type": "comment",
+                    "allow_empty": true,
+                    "content": "Bones"
+                }
+            ]
+        }
+        
+    ]
+}

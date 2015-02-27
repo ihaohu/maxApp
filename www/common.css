@@ -114,3 +114,27 @@ body {
 .btn-footer {
     padding: 1.25em 1.25em;
 }
+
+.evaluationBody {
+    overflow: hidden;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.evaluationBodyText {
+    text-align: justify;
+}
+
+.evaluationBodyTable  {
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+}
+
+.evaluationBodyYesNo {
+    width: 8em;
+    text-align: right;
+}
+
+.evaluationBodyComment {
+    margin-top: 2em;
+}

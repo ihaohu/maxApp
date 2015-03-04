@@ -28,6 +28,6 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <icon src="res/icon.png" />
-    <gap:splash gap:platform="android" gap:qualifier="port-xhdpi" src="res/splash.png" />
+    <gap:splash gap:platform="android" src="res/splash.png" />
     <access origin="*" />
 </widget>
